@@ -1,4 +1,4 @@
-package example;
+package jexample;
 
 class Sample1 {
     // --- Native methods
