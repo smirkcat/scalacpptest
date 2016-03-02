@@ -1,4 +1,4 @@
-package javaexample;
+package example;
 
 class Sample1 {
     // --- Native methods
