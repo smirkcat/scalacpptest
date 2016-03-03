@@ -16,8 +16,8 @@ object Sample1 extends App {
   val bool = sample.booleanMethod(true)
   val text = sample.stringMethod("java")
   val sum = sample.intArrayMethod(Array(1, 1, 2, 3, 5, 8, 13))
-  println(s"intMethod: $square")
-  println(s"booleanMethod: $bool")
-  println(s"stringMethod: $text")
-  println(s"intArrayMethod: $sum")
+  println(s"scalaintMethod: $square")
+  println(s"scalabooleanMethod: $bool")
+  println(s"scalastringMethod: $text")
+  println(s"scalaintArrayMethod: $sum")
 }

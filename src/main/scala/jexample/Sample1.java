@@ -6,10 +6,14 @@ class Sample1 {
     public native boolean booleanMethod(boolean bool);
     public native String stringMethod(String text);
     public native int intArrayMethod(int[] intArray);
+    
+    static{
+    	System.loadLibrary("Sample1");
+    }
 
     // --- Main method to test our native library
     public static void main(String[] args) {
-        System.loadLibrary("Sample1");
+        
         Sample1 sample = new Sample1();
         int square = sample.intMethod(5);
         boolean bool = sample.booleanMethod(true);
