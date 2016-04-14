@@ -1,5 +1,11 @@
 package example
 
+/**
+ * @author 李杰
+ * 2016年4月14日16:32:20
+ * 
+ */
+
 class Sample1 {
   // --- Native methods
   @native def intMethod(n: Int): Int
@@ -7,10 +13,12 @@ class Sample1 {
   @native def stringMethod(s: String): String
   @native def intArrayMethod(a: Array[Int]): Int
 }
-// --- Code in App body will get wrapped in a main method on compilation
-object Sample1 extends App {
-  // --- Main method to test our native library
+//伴生对象 ，staic
+object Sample1 {
+  //此处相当于static方法块
   System.loadLibrary("Sample1")
+  def main(args: Array[String]){
+    // --- Main method to test our native library
   val sample = new Sample1
   val square = sample.intMethod(5)
   val bool = sample.booleanMethod(true)
@@ -20,4 +28,7 @@ object Sample1 extends App {
   println(s"scalabooleanMethod: $bool")
   println(s"scalastringMethod: $text")
   println(s"scalaintArrayMethod: $sum")
+  println(s"执行完毕")
+  }
+  
 }
