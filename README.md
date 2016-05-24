@@ -38,10 +38,10 @@ SCALA_LIB=%SCALA_HOME%\lib
 SCALA_CP=%SCALA_LIB%\scala-library.jar;$SCALA_LIB\scala-reflect.jar
 javah -cp %SCALA_CP%;. example.Sample1
 ```
-#####　注：windows会多一个.h文件，如下图linux和windows结果
-![windows图片](resources/windows和linux的h文件结果比较.png)
+#####　注：windows会多一个.h文件，如下图[linux和windows结果](resources/windows和linux的h文件结果比较.png)
+![windows和linux的h文件结果比较.png](resources/windows和linux的h文件结果比较.png)
 请忽略example_Sample1_delayedInit__body.h
-只需要[example_Sample1.h](Sample1/Sample1.h)(为了方便重命名Sample1)
+只需要[example_Sample1.h](Sample1/Sample1.h)(为了方便重命名Sample1.h)
 编写对应的cpp文件[Sample.cpp](Sample1/Sample1.cpp)
 
 ## 步骤3 编译动态库
@@ -53,8 +53,8 @@ g++ -dynamiclib -shared -fPIC  \
         -I/usr/include -I$JAVA_HOME/include -I$JAVA_HOME/include/linux \
         Sample1.cpp -o libSample1.so  #最后会生成libSample1.so，手动改成Sample1.so
 ```
-### Cmake方式，文件[CMakeLists.txt](CMakeLists.txt)
-#### 提供linux下使用方式
+### Cmake方式，文件[CMakeLists.txt](Sample1/CMakeLists.txt)
+#### linux下使用cmake
 ```shell
 cd Sample1
 mkdir build
@@ -62,17 +62,14 @@ cd build
 cmake ../
 make
 ```
-### linux g++编译
-```shell
-g++ -dynamiclib -shared -fPIC  \
-        -I/usr/include -I$JAVA_HOME/include -I$JAVA_HOME/include/linux \
-        Sample1.cpp -o libSample1.so  #最后会生成libSample1.so，手动改成Sample1.so
-```
+#### windows下使用cmake-gui
+如图[windows-cmake-gui下使用方式.png](resources/windows-cmake-gui下使用方式.png)
+![windows-cmake-gui下使用方式.png](resources/windows-cmake-gui下使用方式.png)
 
 #### 住：目前java和scala两种方式是调用一样的动态库文件，所以觉得复杂时，选用java代码方式编写，获得编译的.h
 ## 步骤4 调用
 #### eclipse 调用方式
-按照如图配置
+按照如图配置[eclipse配置动态库路径](resources/eclipse设置jni加载库位置.png)
 ![eclipse配置动态库路径](resources/eclipse设置jni加载库位置.png)
 或者放进C:\Windows\System32(64位) C:\Windows\SysWOW64(32位)
 linux目前不知，接下来直接运行即可
