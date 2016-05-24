@@ -1,10 +1,11 @@
-作者[@李杰][1]
+作者[@李杰][1] 如有疑问可留言
 ### jni本地方法测试
 这个演示程序是测试scala和java调用动态库，请用eclipse打开，配置好scala环境(不知道请参考项目[loadll][2])，example包下面为scala程序，jexample为java程序，两者调用动态库一样。
 #### 注：java测试时请移动至example目录下，scala移动到jexample下（不然两者会有冲突，请分开测试java和scala）
 目录结构如下
 + [src/main/scala](src/main/scala) java和scala类目录
 + [src/main/resources](src/main/resources)动态库放置目录
++ [Sample1](Sample1)动态库源码文件，vs2013项目
 
 如果满足eclipse环境配置正常，则直接进入步骤2，没有则从步骤1开始
 ## 步骤1 编译java和scala字节码
@@ -20,9 +21,9 @@ scalac Sample1.scala
 ## 步骤2
 ### java生成.h
 ####　命令如下
-｀｀｀
+```
 javah -classpath . -jni example.Sample1　＃必须打包，及命令目录在class文件上一级，不然调用失败 -jni参数可以省略,注意没有class结尾，不然找不到
-｀｀｀
+```
 
 ### scala生成.h,前提是配置好scala环境
 #### linux命令如下
@@ -52,6 +53,21 @@ g++ -dynamiclib -shared -fPIC  \
         -I/usr/include -I$JAVA_HOME/include -I$JAVA_HOME/include/linux \
         Sample1.cpp -o libSample1.so  #最后会生成libSample1.so，手动改成Sample1.so
 ```
+### Cmake方式，文件[CMakeLists.txt](CMakeLists.txt)
+#### 提供linux下使用方式
+```shell
+cd Sample1
+mkdir build
+cd build
+cmake ../
+make
+```
+### linux g++编译
+```shell
+g++ -dynamiclib -shared -fPIC  \
+        -I/usr/include -I$JAVA_HOME/include -I$JAVA_HOME/include/linux \
+        Sample1.cpp -o libSample1.so  #最后会生成libSample1.so，手动改成Sample1.so
+```
 
 #### 住：目前java和scala两种方式是调用一样的动态库文件，所以觉得复杂时，选用java代码方式编写，获得编译的.h
 ## 步骤4 调用
@@ -62,10 +78,10 @@ g++ -dynamiclib -shared -fPIC  \
 linux目前不知，接下来直接运行即可
 
 #### 命令行调用方式
-VM arguments中加入该.so文件的路径
+VM arguments中加入该动态库文件的路径
 ```
  # Assumes all files are in the same directory.
- # If they are not, replace $(pwd) with the directory containing Sample1.so or Sample1.dylib or Sample1.dll
+ # If they are not, replace $(pwd) with the directory containing Sample1.so(linux) or Sample1.dylib(os x) or Sample1.dll(windows)
 java -Djava.library.path=$(pwd) -cp . example.Sample1
 scala -Djava.library.path=$(pwd) -cp . example.Sample1
 or
