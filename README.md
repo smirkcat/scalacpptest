@@ -21,7 +21,7 @@ scalac Sample1.scala
 ### java生成.h
 ####　命令如下
 ｀｀｀
-javah -classpath . -jni test.jni　＃必须打包，及命令目录在class文件上一级，不然调用失败 -jni参数可以省略,注意没有class结尾，不然找不到
+javah -classpath . -jni example.Sample1　＃必须打包，及命令目录在class文件上一级，不然调用失败 -jni参数可以省略,注意没有class结尾，不然找不到
 ｀｀｀
 
 ### scala生成.h,前提是配置好scala环境
@@ -38,14 +38,14 @@ SCALA_CP=%SCALA_LIB%\scala-library.jar;$SCALA_LIB\scala-reflect.jar
 javah -cp %SCALA_CP%;. example.Sample1
 ```
 #####　注：windows会多一个.h文件，如下图linux和windows结果
-![windows图片](resources\windows和linux的h文件结果比较.png)
+![windows图片](resources/windows和linux的h文件结果比较.png)
 请忽略example_Sample1_delayedInit__body.h
-只需要[example_Sample1.h](Sample1\Sample1.h)(为了方便重命名Sample1)
-编写对应的cpp文件[Sample.cpp](Sample1\Sample1.cpp)
+只需要[example_Sample1.h](Sample1/Sample1.h)(为了方便重命名Sample1)
+编写对应的cpp文件[Sample.cpp](Sample1/Sample1.cpp)
 
 ## 步骤3 编译动态库
 ###　windows请用vs编译
-在目录[Sample1](Sample1)下，用vs2103(高版本也行)打开[Sample1.sln](Sample1\Sample1.sln)
+在目录[Sample1](Sample1)下，用vs2103(高版本也行)打开[Sample1.sln](Sample1/Sample1.sln)
 ### linux 编译如下
 ```shell
 g++ -dynamiclib -shared -fPIC  \
@@ -57,7 +57,7 @@ g++ -dynamiclib -shared -fPIC  \
 ## 步骤4 调用
 #### eclipse 调用方式
 按照如图配置
-![eclipse配置动态库路径](resources\eclipse设置jni加载库位置.png)
+![eclipse配置动态库路径](resources/eclipse设置jni加载库位置.png)
 或者放进C:\Windows\System32(64位) C:\Windows\SysWOW64(32位)
 linux目前不知，接下来直接运行即可
 
