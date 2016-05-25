@@ -87,6 +87,9 @@ or
  java -Djava.library.path=$(pwd) -cp $SCALA_CP:. example.Sample1
 ```
 另附上开源项目javacpp 以及封装一些预制的开源c++库
+https://github.com/bytedeco/javacpp
+https://github.com/bytedeco/javacv
+https://github.com/bytedeco/javacpp-presets
 
 
 [1]: http://weibo.com/smirklijie
