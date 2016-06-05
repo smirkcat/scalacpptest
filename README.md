@@ -5,17 +5,17 @@
 目录结构如下
 + [src/main/scala](src/main/scala) java和scala类目录
 + [src/main/resources](src/main/resources)动态库放置目录
-+ [Sample1](Sample1)动态库源码文件，vs2013项目
++ [Sample1](Sample1)动态库源码文件，vs2013项目解决方案,以及Cmakelists.txt
 
 如果满足eclipse环境配置正常，则直接进入步骤2，没有则从步骤1开始
 ## 步骤1 编译java和scala字节码
 ### java编译[Sample1.java](src/main/scala/jexample/Sample1.java)(测试时注意修改包名)
 ```
-javac Sample1.java
+javac example/Sample1.java
 ```
 ### scala编译[Sample1.scala](src/main/scala/example/Sample1.scala)
 ```
-scalac Sample1.scala
+scalac example/Sample1.scala
 ```
 
 ## 步骤2
@@ -26,14 +26,14 @@ javah -classpath . -jni example.Sample1　＃必须打包，及命令目录在cl
 ```
 
 ### scala生成.h,前提是配置好scala环境
-#### linux命令如下
-```
- SCALA_LIB=/usr/local/lib/scala/2.10.6/lib/  #SCALA_LIB自定义名称与后面对应
- SCALA_CP=$SCALA_LIB/scala-library.jar:$SCALA_LIB/scala-reflect.jar
- javah -cp $SCALA_CP:. example.Sample1
+#### linux和mac命令如下
+```shell
+SCALA_LIB=$SCALA_HOME/lib
+SCALA_CP=$SCALA_LIB/scala-library.jar:$SCALA_LIB/scala-reflect.jar
+javah -cp $SCALA_CP:. example.Sample1
 ```
 #### windows命令如下
-```
+```shell
 SCALA_LIB=%SCALA_HOME%\lib
 SCALA_CP=%SCALA_LIB%\scala-library.jar;$SCALA_LIB\scala-reflect.jar
 javah -cp %SCALA_CP%;. example.Sample1
@@ -42,7 +42,7 @@ javah -cp %SCALA_CP%;. example.Sample1
 ![windows和linux的h文件结果比较.png](resources/windows和linux的h文件结果比较.png)
 请忽略example_Sample1_delayedInit__body.h
 只需要[example_Sample1.h](Sample1/Sample1.h)(为了方便重命名Sample1.h)
-编写对应的cpp文件[Sample.cpp](Sample1/Sample1.cpp)
+编写对应的cpp文件[Sample1.cpp](Sample1/Sample1.cpp)
 
 ## 步骤3 编译动态库
 ###　windows请用vs编译
@@ -51,7 +51,13 @@ javah -cp %SCALA_CP%;. example.Sample1
 ```shell
 g++ -dynamiclib -shared -fPIC  \
         -I/usr/include -I$JAVA_HOME/include -I$JAVA_HOME/include/linux \
-        Sample1.cpp -o libSample1.so  #最后会生成libSample1.so，手动改成Sample1.so
+        Sample1.cpp -o Sample1.so
+```
+### mac os 编译如下
+```shell
+g++ -dynamiclib -shared -fPIC  \
+        -I/usr/include -I$JAVA_HOME/include -I$JAVA_HOME/include/darwin \
+        Sample1.cpp -o Sample1.so
 ```
 ### Cmake方式，文件[CMakeLists.txt](Sample1/CMakeLists.txt)
 #### linux下使用cmake
@@ -76,16 +82,20 @@ linux目前不知，接下来直接运行即可
 
 #### 命令行调用方式
 VM arguments中加入该动态库文件的路径
-```
- # Assumes all files are in the same directory.
- # If they are not, replace $(pwd) with the directory containing Sample1.so(linux) or Sample1.dylib(os x) or Sample1.dll(windows)
+```shell
+Assumes all files are in the same directory.
+If they are not, replace $(pwd) with the directory containing Sample1.so(linux) or Sample1.dylib(os x) or Sample1.dll(windows)
+
 java -Djava.library.path=$(pwd) -cp . example.Sample1
 scala -Djava.library.path=$(pwd) -cp . example.Sample1
+
 or
- SCALA_LIB_HOME=/usr/local/lib/scala/2.10.6/lib/
+
+ SCALA_LIB_HOME=$SCALA_HOME/lib
  SCALA_CP=$SCALA_LIB_HOME/scala-library.jar:$SCALA_LIB_HOME/scala-reflect.jar
  java -Djava.library.path=$(pwd) -cp $SCALA_CP:. example.Sample1
 ```
+
 另附上开源项目javacpp 以及封装一些预制的开源c++库
 https://github.com/bytedeco/javacpp
 https://github.com/bytedeco/javacv
