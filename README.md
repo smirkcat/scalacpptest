@@ -1,4 +1,4 @@
-作者[@李杰][1] 如有疑问可留言
+作者[@秀才遇到猫][1] 如有疑问可留言
 ### jni本地方法测试
 这个演示程序是测试scala和java调用动态库，请用eclipse打开，配置好scala环境(不知道请参考项目[loadll][2])，example包下面为scala程序，jexample为java程序，两者调用动态库一样。
 #### 注：java测试时请移动至example目录下，scala移动到jexample下（不然两者会有冲突，请分开测试java和scala）
@@ -6,6 +6,10 @@
 + [src/main/scala](src/main/scala) java和scala类目录
 + [src/main/resources](src/main/resources)动态库放置目录
 + [Sample1](Sample1)动态库源码文件，vs2013项目
+
+### 本项目两个分支
++ [master][3] 默认显示，基础测试
++ [loaddll][4] 依赖项目loaddll，采用它的方式加载动态库
 
 如果满足eclipse环境配置正常，则直接进入步骤2，没有则从步骤1开始
 ## 步骤1 编译java和scala字节码
@@ -87,10 +91,12 @@ or
  java -Djava.library.path=$(pwd) -cp $SCALA_CP:. example.Sample1
 ```
 另附上开源项目javacpp 以及封装一些预制的开源c++库
-https://github.com/bytedeco/javacpp
-https://github.com/bytedeco/javacv
-https://github.com/bytedeco/javacpp-presets
++ https://github.com/bytedeco/javacpp
++ https://github.com/bytedeco/javacv
++ https://github.com/bytedeco/javacpp-presets
 
 
 [1]: http://weibo.com/smirklijie
 [2]: https://git.oschina.net/smirkcat/loaddll
+[3]: https://git.oschina.net/smirkcat/scalacpptest
+[4]: https://git.oschina.net/smirkcat/scalacpptest/tree/loaddll/
