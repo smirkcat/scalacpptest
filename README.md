@@ -1,13 +1,16 @@
-作者[@李杰][1] 如有疑问可留言
+作者[@秀才遇到猫][1] 如有疑问可留言
+
+_本分支是测试loaddll功能_
+
 ### jni本地方法测试
-这个演示程序是测试scala和java调用动态库，请用eclipse打开，配置好scala环境(不知道请参考项目[loadll][2])，example包下面为scala程序，jexample为java程序，两者调用动态库一样。
+这个演示程序是测试scala和java调用动态库，请用eclipse或者intellij打开，配置好scala环境(不知道请参考项目[loaddll][2])，或者配置scala环境，请自行百度谷歌。example包下面为scala程序，jexample为java程序，两者调用动态库一样。
 #### 注：java测试时请移动至example目录下，scala移动到jexample下（不然两者会有冲突，请分开测试java和scala）
 目录结构如下
 + [src/main/scala](src/main/scala) java和scala类目录
 + [src/main/resources](src/main/resources)动态库放置目录
 + [Sample1](Sample1)动态库源码文件，vs2013项目
 
-如果满足eclipse环境配置正常，则直接进入步骤2，没有则从步骤1开始
+如果满足IDE环境配置且编译正常，则直接进入步骤2，没有则从步骤1开始
 ## 步骤1 编译java和scala字节码
 ### java编译[Sample1.java](src/main/scala/jexample/Sample1.java)(测试时注意修改包名)
 ```
