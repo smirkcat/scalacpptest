@@ -1,6 +1,6 @@
 作者[@秀才遇到猫][1] 如有疑问可留言
 ### jni本地方法测试
-这个演示程序是测试scala和java调用动态库，请用eclipse打开，配置好scala环境(不知道请参考项目[loadll][2])，example包下面为scala程序，jexample为java程序，两者调用动态库一样。
+这个演示程序是测试scala和java调用动态库，请用eclipse或者intellij打开，配置好scala环境(不知道请参考项目[loaddll][2])，或者配置scala环境，请自行百度谷歌。example包下面为scala程序，jexample为java程序，两者调用动态库一样。
 #### 注：java测试时请移动至example目录下，scala移动到jexample下（不然两者会有冲突，请分开测试java和scala）
 目录结构如下
 + [src/main/scala](src/main/scala) java和scala类目录
@@ -11,7 +11,7 @@
 + [master][3] 默认显示，基础测试
 + [loaddll][4] 依赖项目loaddll，采用它的方式加载动态库
 
-如果满足eclipse环境配置正常，则直接进入步骤2，没有则从步骤1开始
+如果满足eclipse或者intellij环境，编译正常，则直接进入步骤2，没有则从步骤1开始
 ## 步骤1 编译java和scala字节码
 ### java编译[Sample1.java](src/main/scala/jexample/Sample1.java)(测试时注意修改包名)
 ```
@@ -49,7 +49,7 @@ javah -cp %SCALA_CP%;. example.Sample1
 编写对应的cpp文件[Sample1.cpp](Sample1/Sample1.cpp)
 
 ## 步骤3 编译动态库
-###　windows请用vs编译
+### windows请用vs编译
 在目录[Sample1](Sample1)下，用vs2103(高版本也行)打开[Sample1.sln](Sample1/Sample1.sln)
 ### linux 编译如下
 ```shell
@@ -61,7 +61,7 @@ g++ -dynamiclib -shared -fPIC  \
 ```shell
 g++ -dynamiclib -shared -fPIC  \
         -I/usr/include -I$JAVA_HOME/include -I$JAVA_HOME/include/darwin \
-        Sample1.cpp -o Sample1.so
+        Sample1.cpp -o Sample1.dylib
 ```
 ### Cmake方式，文件[CMakeLists.txt](Sample1/CMakeLists.txt)
 #### linux下使用cmake
@@ -69,7 +69,7 @@ g++ -dynamiclib -shared -fPIC  \
 cd Sample1
 mkdir build
 cd build
-cmake ../
+cmake ..
 make
 ```
 #### windows下使用cmake-gui
@@ -109,4 +109,4 @@ or
 [1]: http://weibo.com/smirklijie
 [2]: https://git.oschina.net/smirkcat/loaddll
 [3]: https://git.oschina.net/smirkcat/scalacpptest
-[4]: https://git.oschina.net/smirkcat/scalacpptest/tree/loaddll/
+[4]: https://git.oschina.net/smirkcat/scalacpptest/tree/loaddll
