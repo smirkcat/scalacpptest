@@ -1,3 +1,4 @@
+//测试前请更换包名为example,放到jexample是为了防止与scala冲突
 package jexample;
 
 class Sample1 {
@@ -23,5 +24,6 @@ class Sample1 {
         System.out.println("booleanMethod: " + bool);
         System.out.println("stringMethod: " + text);
         System.out.println("intArrayMethod: " + sum);
+        System.out.println("执行完毕");
     }
 }
