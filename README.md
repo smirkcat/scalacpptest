@@ -1,15 +1,19 @@
-作者[@秀才遇到猫][1]
-### jni本地方法测试
-这个演示程序是测试scala和java调用动态库，请用eclipse或者intellij打开，配置好scala环境(不知道请参考项目[loaddll][2])，或者配置scala环境，请自行百度谷歌。example包下面为scala程序，jexample为java程序，两者调用动态库一样。
-#### 注：java测试时请移动至example目录下，scala移动到jexample下（不然两者会有冲突，请分开测试java和scala）
+### jni本地方法测试  
+
+这个演示程序是测试scala和java调用动态库，请用eclipse或者intellij打开，配置好scala环境(不知道请参考项目loaddll([gitee][2],[github][5]));  
+
+配置scala环境，请自行百度谷歌。example包下面为scala程序，jexample为java程序，两者调用动态库一样。  
+
+**注：java测试时请移动至example目录下，scala移动到jexample下（不然两者会有冲突，请分开测试java和scala）**
+
 目录结构如下
 + [src/main/scala](src/main/scala) java和scala类目录
 + [src/main/resources](src/main/resources)动态库放置目录
 + [Sample1](Sample1)动态库源码文件，vs2013项目解决方案,以及Cmakelists.txt
 
 ### 本项目两个分支
-+ [master][3] 默认显示，基础测试
-+ [loaddll][4] 依赖项目loaddll，采用它的方式加载动态库
++ main分支([gitee][3],[github][1]) 默认显示，基础测试
++ loaddll分支([gitee][4],[github][6]) 依赖项目loaddll([gitee][2],[github][5])，采用它的方式加载动态库
 
 如果满足eclipse或者intellij环境，编译正常，则直接进入步骤2，没有则从步骤1开始
 ## 步骤1 编译java和scala字节码
@@ -22,11 +26,13 @@ javac example/Sample1.java
 scalac example/Sample1.scala
 ```
 
-## 步骤2
+## 步骤2-生成头文件.h
 ### java生成.h
-####　命令如下
+
+#### 命令如下
 ```shell
-javah -classpath . -jni example.Sample1　＃必须打包，及命令目录在class文件上一级，不然调用失败 -jni参数可以省略,注意没有class结尾，不然找不到
+javah -classpath . -jni example.Sample1　
+# 必须打包，及命令目录在class文件上一级，不然调用失败 -jni参数可以省略,注意没有class结尾，不然找不到
 ```
 
 ### scala生成.h,前提是配置好scala环境
@@ -42,13 +48,15 @@ SCALA_LIB=%SCALA_HOME%\lib
 SCALA_CP=%SCALA_LIB%\scala-library.jar;$SCALA_LIB\scala-reflect.jar
 javah -cp %SCALA_CP%;. example.Sample1
 ```
-#####　注：windows会多一个.h文件，如下图[linux和windows结果](resources/windows和linux的h文件结果比较.png)
+##### 注：windows会多一个.h文件
+
+如下图[linux和windows结果](resources/windows和linux的h文件结果比较.png)
 ![windows和linux的h文件结果比较.png](resources/windows和linux的h文件结果比较.png)
 请忽略example_Sample1_delayedInit__body.h
 只需要[example_Sample1.h](Sample1/Sample1.h)(为了方便重命名Sample1.h)
 编写对应的cpp文件[Sample1.cpp](Sample1/Sample1.cpp)
 
-## 步骤3 编译动态库
+## 步骤3-编译动态库
 ### windows请用vs编译
 在目录[Sample1](Sample1)下，用vs2103(高版本也行)打开[Sample1.sln](Sample1/Sample1.sln)
 ### linux 编译如下
@@ -111,7 +119,11 @@ scala类
 + https://github.com/bytedeco/javacpp-presets
 
 
-[1]: http://weibo.com/smirklijie
-[2]: https://git.oschina.net/smirkcat/loaddll
-[3]: https://git.oschina.net/smirkcat/scalacpptest
-[4]: https://git.oschina.net/smirkcat/scalacpptest/tree/loaddll
+
+[2]: https://gitee.com/smirkcat/loaddll
+[3]: https://gitee.com/smirkcat/scalacpptest
+[4]: https://gitee.com/smirkcat/scalacpptest/tree/loaddll
+
+[1]: https://github.com/smirkcat/scalacpptest
+[5]: https://github.com/smirkcat/loaddll
+[6]: https://github.com/smirkcat/scalacpptest/tree/loaddll
